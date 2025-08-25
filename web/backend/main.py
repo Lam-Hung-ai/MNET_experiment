@@ -4,11 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import io
 from PIL import Image
 import torch
-import cv2
 import numpy as np
 import torchvision.transforms as transforms
 from argparse import Namespace
-import os
 
 from model.MNetold import MNetold  # import model của bạn
 
