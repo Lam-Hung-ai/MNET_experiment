@@ -9,7 +9,9 @@ const Contact01Page = () => (
         Liên hệ với tôi
       </h2>
       <p className="mt-4 text-base sm:text-lg">
-        Tôi luôn sẵn sàng trò chuyện và giải đáp các thắc mắc của bạn.
+        35. Nguyễn Văn Lâm Hùng <br/>
+        Sinh viên trường Đại học Thủy Lợi <br/>
+        Lớp 65TTNT
       </p>
       <div className="max-w-screen-xl mx-auto py-24 grid md:grid-cols-2 lg:grid-cols-3 gap-16 md:gap-10 px-6 md:px-0">
         <div className="text-center flex flex-col items-center">
