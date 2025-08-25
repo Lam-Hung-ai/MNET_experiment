@@ -1,4 +1,8 @@
-weight
+weight/*
 __pycache__/
 *.pyc
-web
+node_modules/
+.next/
+dist/
+build/
+.env
