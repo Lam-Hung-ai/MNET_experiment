@@ -119,7 +119,7 @@ Cách này sẽ khởi chạy một giao diện web cho phép bạn tải ảnh 
 2.  **Cài đặt các gói phụ thuộc** cho frontend (chỉ cần làm lần đầu):
 
     ```bash
-    pnpm install
+    pnpm dev -H 0.0.0.0
     ```
 
 3.  **Khởi động giao diện người dùng:**
