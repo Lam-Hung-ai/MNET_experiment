@@ -34,7 +34,7 @@ export default function ImageProcessor() {
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://localhost:8000/process-image", {
+      const res = await fetch("http://139.59.121.153:8000/process-image", {
         method: "POST",
         body: formData,
       });
@@ -53,9 +53,9 @@ export default function ImageProcessor() {
     <div className="flex flex-col items-center gap-6 p-6">
 
       <div>
-<h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-rose-600 via-pink-500 to-violet-600 bg-clip-text text-transparent">
-  Xóa watermark với mô hình MNet
-</h1>
+        <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-rose-600 via-pink-500 to-violet-600 bg-clip-text text-transparent">
+          Xóa watermark với mô hình MNet
+        </h1>
 
 
         <p className="text-sm">Bạn có thể thử nghiệm một số hình ảnh sau <a className="text-blue-400" target="_blank" href="https://drive.google.com/drive/folders/1V8qKfjJ35BQ4XZeu83tt3gXoprfD3L8X?usp=sharing">tại đây</a></p>
@@ -135,11 +135,10 @@ export default function ImageProcessor() {
             )}
           </div>
 
-          {/* Compare slider 300x300 */}
           {processedImage && (
             <div className="mt-6 flex flex-col items-center">
               <h3 className="mb-2 font-medium text-center">So sánh</h3>
-              <div className="w-[300px] h-[300px]">
+              <div className="w-auto h-auto">
                 <ReactCompareSlider
                   itemOne={
                     <ReactCompareSliderImage src={preview} alt="Ảnh gốc" />

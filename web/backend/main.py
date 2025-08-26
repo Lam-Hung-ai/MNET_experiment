@@ -43,34 +43,40 @@ def preprocess_pil_image(img: Image.Image, device):
     return tensor
 
 # --- Hàm hậu xử lý ảnh ---
-def postprocess_to_pil(restored_bg, mask, input_tensor):
+def postprocess_to_pil(restored_bg, mask, input_tensor, original_size):
+    # Kết hợp ảnh restored và mask
     final_output_tensor = restored_bg * mask + input_tensor * (1.0 - mask)
+    
+    # Lấy tensor, chuyển sang CPU và permute
     output_tensor = final_output_tensor.squeeze(0).cpu()
     output_numpy_rgb = output_tensor.permute(1, 2, 0).numpy()
     output_numpy_rgb = (output_numpy_rgb * 255).astype(np.uint8)
-    output_pil = Image.fromarray(output_numpy_rgb)  # chuyển sang PIL Image
+    
+    # Chuyển sang PIL Image
+    output_pil = Image.fromarray(output_numpy_rgb)
+    
+    # Resize về kích thước ảnh gốc
+    output_pil = output_pil.resize(original_size, Image.BILINEAR)
     return output_pil
+
 
 # --- API Endpoint ---
 @app.post("/process-image")
 async def upload(file: UploadFile = File(...)):
     contents = await file.read()
     img = Image.open(io.BytesIO(contents))
+    original_size = img.size  # lưu kích thước ảnh gốc (width, height)
 
-    # Tiền xử lý
     input_tensor = preprocess_pil_image(img, device)
 
-    # Inference
     with torch.no_grad():
         restored_bg, mask = model(input_tensor)
 
-    # Hậu xử lý
-    processed = postprocess_to_pil(restored_bg, mask, input_tensor)
+    # Truyền thêm original_size để resize ảnh
+    processed = postprocess_to_pil(restored_bg, mask, input_tensor, original_size)
 
-    # Convert ảnh sang bytes để trả về
     img_byte_arr = io.BytesIO()
     processed.save(img_byte_arr, format="PNG")
     img_byte_arr = img_byte_arr.getvalue()
 
-    print(">> Image processed successfully!")
     return Response(content=img_byte_arr, media_type="image/png")
