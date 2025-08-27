@@ -1,3 +1,6 @@
 numpy
 pillow
 fastapi[standard]
+torchmetrics
+piq
+tqdm

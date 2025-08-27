@@ -53,7 +53,7 @@ Cách này phù hợp nếu bạn muốn kiểm tra nhanh khả năng của mô 
 1.  **Clone repository** (Nếu bạn chưa có mã nguồn):
 
     ```bash
-    git clone <your-repository-url>
+    git clone https://github.com/Lam-Hung-ai/MNET_experiment.git
     cd MNet_experiment
     ```
 
@@ -129,3 +129,44 @@ Cách này sẽ khởi chạy một giao diện web cho phép bạn tải ảnh 
     ```
 
 4.  Mở trình duyệt và truy cập vào địa chỉ `http://localhost:3000` để bắt đầu trải nghiệm.
+
+## 5. Đánh giá chất lượng ảnh xóa watermark
+- Tải bộ dữ liệu 10khigh trên [HuggingFace](https://huggingface.co/datasets/vinthony/watermark-removal-logo/tree/main)
+- Tải trọng sô model như bước 4.2
+- Thực thi chương trình với các đường dẫn tùy chỉnh
+```
+cd evaluate
+python evaluate.py \
+--weight '/home/lamhung/paper/xử lý ảnh/MNet_experiment/weight/model_best.pth.tar' \
+--image '/home/lamhung/paper/xử lý ảnh/MNet/10khigh/val_input_256' \
+--ground_truth_dir '/home/lamhung/paper/xử lý ảnh/MNet/10khigh/val_target_256' \
+--restoration_image_dir '/home/lamhung/paper/xử lý ảnh/MNet_experiment/evaluate/results' 
+```
+- Bạn hãy thay đổi các đường dẫn:
+1.  --weigh: đường dẫn tới file trọng số model
+2.  --image: đường dẫn tới thư mục chứa ảnh có watermark
+3.  --ground_truth_dir: đường dãn tới thư mục chứa những ground truth image của bộ dữ liệu 10khigh
+4.  --restoration_image_dir: đường dẫn tới thư mục chứa những hình ảnh xóa watermark của model
+- Kết quả đánh giá chất lượng ảnh của model **MNet** bằng markdown:
+
+| Model | PSNR (dB) | SSIM   | LPIPS  |
+| ----- | --------- | ------ | ------ |
+| MNet  | 41.8502   | 0.9928 | 0.0090 |
+
+
+## 6. Lời cảm ơn
+Cảm ơn Huang, Wenhong and Dai, Yunshu and Fei, Jianwei and Huang, Fangjun với bài báo [**"MNet: A multi-scale network for visible watermark removal"**](https://www.sciencedirect.com/science/article/abs/pii/S0893608024008906)  
+Cảm ơn Xiaodong Cun, Chi-Man Pun với bộ dữ liệu [SplitNet](https://github.com/vinthony/deep-blind-watermark-removal)
+
+## 7. Trích dẫn
+```bibtex
+@article{huang2025mnet,
+  title={MNet: A multi-scale network for visible watermark removal},
+  author={Huang, Wenhong and Dai, Yunshu and Fei, Jianwei and Huang, Fangjun},
+  journal={Neural Networks},
+  volume={183},
+  pages={106961},
+  year={2025},
+  publisher={Elsevier}
+}
+```
