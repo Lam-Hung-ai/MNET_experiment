@@ -34,7 +34,7 @@ export default function ImageProcessor() {
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://139.59.121.153:8000/process-image", {
+      const res = await fetch("http://localhost:8000/process-image", {
         method: "POST",
         body: formData,
       });
